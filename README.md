@@ -17,7 +17,7 @@ backend kubernetes-backend
     option tcp-check
     balance roundrobin
     server kmaster1 192.168.56.11:6443 check fall 3 rise 2
-    server kmaster2 192.168.56.12:6443 check fall 3 rise 2``
+    server kmaster2 192.168.56.12:6443 check fall 3 rise 2
 ```
 
 ## 3 Restart haproxy    
