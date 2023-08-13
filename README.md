@@ -2,7 +2,9 @@
 ## LOAD BALANCER
 
 ### 1 Install haproxy
-```apt update && apt install -y haproxy```
+```
+apt update && apt install -y haproxy
+```
 
 ### 2 haproxy conf
 ```
@@ -21,7 +23,9 @@ backend kubernetes-backend
 ```
 
 ## 3 Restart haproxy    
-```systemctl restart haproxy```
+```
+systemctl restart haproxy
+```
 
 ## General Install
 
@@ -32,7 +36,9 @@ swapoff -a
 ```
 
 ### 2 Stop and Disable firewall
-```systemctl disable --now ufw >/dev/null 2>&1```
+```
+systemctl disable --now ufw >/dev/null 2>&1
+```
 
 ### 3 Enable and Load Kernel modules
 ```
@@ -41,8 +47,12 @@ overlay
 br_netfilter
 EOF
 ```
-```modprobe overlay```
-```modprobe br_netfilter```
+```
+modprobe overlay
+```
+```
+modprobe br_netfilter
+```
 
 ### 4 Add Kernel settings
 ```
@@ -52,11 +62,13 @@ net.bridge.bridge-nf-call-iptables  = 1
 net.ipv4.ip_forward                 = 1
 EOF
 ```
-`sysctl --system >/dev/null 2>&1`
+```
+sysctl --system
+```
 
 ### 5 Install containerd runtime
 ```
-apt update -qq
+apt update
 ```
 ```
 apt install -qq -y ca-certificates curl gnupg lsb-release
@@ -73,10 +85,10 @@ echo \
   $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list
 ```
 ```
-apt update -qq
+apt update
 ```
 ```
-apt install -qq -y containerd.io
+apt install -y containerd.io
 ```
 ```
 containerd config default > /etc/containerd/config.toml
@@ -99,7 +111,7 @@ apt-add-repository "deb http://apt.kubernetes.io/ kubernetes-xenial main"
 
 ### 7 Install Kubernetes components (kubeadm, kubelet and kubectl)
 ```
-apt install -qq -y kubeadm=1.26.0-00 kubelet=1.26.0-00 kubectl=1.26.0-00
+apt install -y kubeadm=1.26.0-00 kubelet=1.26.0-00 kubectl=1.26.0-00
 ```
 
 
@@ -112,7 +124,7 @@ kubeadm config images pull
 
 ### 2 Initialize Kubernetes Cluster
 ```
-kubeadm init --apiserver-advertise-address=192.168.56.31 --pod-network-cidr=192.168.0.0/16
+kubeadm init --control-plane-endpoint="192.168.56.31:6443" --apiserver-advertise-address=192.168.56.31 --pod-network-cidr=192.168.0.0/16
 ```
 
 ### 3 Deploy Calico network
