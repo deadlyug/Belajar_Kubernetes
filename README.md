@@ -124,7 +124,7 @@ kubeadm config images pull
 
 ### 2 Initialize Kubernetes Cluster
 ```
-kubeadm init --control-plane-endpoint="192.168.56.31:6443" --upload-certs --apiserver-advertise-address=192.168.56.31 --pod-network-cidr=192.168.0.0/16
+kubeadm init --control-plane-endpoint="192.168.56.31:6443" --upload-certs --apiserver-advertise-address=192.168.56.11 --pod-network-cidr=192.168.0.0/16
 ```
 
 ### 3 Deploy Calico network
