@@ -22,7 +22,7 @@ backend kubernetes-backend
     server kmaster2 192.168.56.12:6443 check fall 3 rise 2
 ```
 
-## 3 Restart haproxy    
+### 3 Restart haproxy    
 ```
 systemctl restart haproxy
 ```
@@ -130,4 +130,13 @@ kubeadm init --control-plane-endpoint="192.168.56.31:6443" --upload-certs --apis
 ### 3 Deploy Calico network
 ```
 kubectl --kubeconfig=/etc/kubernetes/admin.conf create -f https://docs.projectcalico.org/v3.18/manifests/calico.yaml
+```
+
+## Notes
+#### Jika error pada saat init master node, coba eksekusi perintah - perintah dibawah ini
+```
+modprobe br_netfilter
+sysctl -p /etc/sysctl.conf
+echo '1' > /proc/sys/net/bridge/bridge-nf-call-iptables
+echo 1 > /proc/sys/net/ipv4/ip_forward
 ```
